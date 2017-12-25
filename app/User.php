@@ -5,7 +5,6 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
-use App\Topic;
 class User extends Authenticatable
 {
     use Notifiable ,HasApiTokens;
@@ -31,4 +30,18 @@ class User extends Authenticatable
     {
     return  $this->hasMany(Topic::class);
     }
+    public function ownsTopic(Topic $topic)
+    {
+    return  $this->id===$topic->user->id;
+    }
+    public function ownsPost(Post $post)
+    {
+    return  $this->id===$post->user->id;
+    }
+    public function hasLikedPost(Post $post)
+    {
+      return $post->likes->where('user_id',$this->id)->count()===1;
+    }
+
+
 }

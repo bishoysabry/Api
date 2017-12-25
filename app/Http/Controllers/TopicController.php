@@ -40,6 +40,7 @@ class TopicController extends Controller
     }
     public function update(   StoreTopicRequest $request ,Topic $topic)
     {
+    
       $this->authorize ('update',$topic);
       $topic->title=$request->get('title',$topic->title);
       $topic->save();

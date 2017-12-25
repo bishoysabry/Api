@@ -38,7 +38,6 @@ Route::group(['prefix'=>'topics'],function (){
                         Route::group(['prefix'=>'/{post}/likes'],function (){
 
                                 Route::middleware('auth:api')->post('/','LikeController@store');
-                                Route::middleware('auth:api')->delete('/{post}','LikeController@destroy');
 
                         });
         });

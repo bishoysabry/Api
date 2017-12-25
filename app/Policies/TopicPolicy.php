@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 use App\User;
+use App\Post;
 
 
 use App\Topic;
@@ -13,12 +14,18 @@ use HandlesAuthorization;
 
 public function update(User $user ,Topic $topic)
 {
-  //return $user->ownsTopic($topic); dont know owns belongs to which technique 
-  return $user->id == $topic->user_id;
+   return $user->ownsTopic($topic);
 }
 public function destroy(User $user ,Topic $topic)
 {
-return $user->id == $topic->user_id;
+return $user->ownsTopic($topic);
 }
+public function like(User $user,Post $post)
+{
+
+ return !$user->ownsPost($post); // means that return true if user dont own the post
+}
+
+
 
 }
